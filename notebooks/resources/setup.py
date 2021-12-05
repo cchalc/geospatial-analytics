@@ -13,9 +13,9 @@ from pyspark.sql.types import *
 
 # COMMAND ----------
 
-from mlflow.utils.file_utils import TempDir
-import mlflow.spark
-import mlflow
+# import mlflow
+# import mlflow.spark
+# from mlflow.utils.file_utils import TempDir
 
 from time import sleep
 import re
