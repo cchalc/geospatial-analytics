@@ -33,7 +33,8 @@ def clean_string(a: str) -> str:
 user = dbutils.notebook.entry_point.getDbutils().notebook().getContext().tags().get("user").get()
 username = clean_string(user.partition('@')[0])
 print("Created variables:")
-print("current_user: {}".format(user))
+print("user: {}".format(user))
+print("username: {}".format(username))
 dbName = re.sub(r'\W+', '_', username) + "_" + demo
 path = f"/Users/{user}/{demo}"
 dbutils.widgets.text("path", path, "path")

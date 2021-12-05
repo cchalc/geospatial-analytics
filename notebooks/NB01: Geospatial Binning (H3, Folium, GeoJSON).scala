@@ -22,13 +22,7 @@
 
 // COMMAND ----------
 
-// MAGIC %sql
-// MAGIC create database if not exists cchalc_nyctlc
-
-// COMMAND ----------
-
-// MAGIC %sql
-// MAGIC use cchalc_nyctlc
+// MAGIC %run ./resources/setup
 
 // COMMAND ----------
 
