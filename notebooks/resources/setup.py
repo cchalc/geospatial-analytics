@@ -3,7 +3,7 @@ dbutils.widgets.removeAll()
 
 # COMMAND ----------
 
-demo = "road_safety"
+demo = "geospatial"
 dbutils.widgets.text("demo", demo, "demo")
 
 # COMMAND ----------
@@ -44,4 +44,5 @@ spark.sql("""USE {}""".format(dbName))
 print("dbName (using database): {}".format(dbName))
 
 # COMMAND ----------
+
 
