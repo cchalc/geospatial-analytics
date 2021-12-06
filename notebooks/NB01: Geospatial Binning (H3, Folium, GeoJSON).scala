@@ -81,8 +81,8 @@ display(df_nyc)
 // COMMAND ----------
 
 // DBTITLE 1,We have 45 million records
-// MAGIC %sql
-// MAGIC SELECT count(*) FROM cchalc_nyctlc.green_tripdata_bronze
+// MAGIC %python
+// MAGIC display(spark.sql(f"SELECT count(*) FROM {dbName}.green_tripdata_bronze"))
 
 // COMMAND ----------
 
@@ -90,6 +90,7 @@ display(df_nyc)
 
 // COMMAND ----------
 
+// default to number of cores on the machine
 sc.defaultParallelism
 
 // COMMAND ----------
