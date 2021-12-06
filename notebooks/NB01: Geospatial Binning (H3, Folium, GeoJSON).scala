@@ -17,8 +17,6 @@
 // MAGIC __Authors__
 // MAGIC * Initial: [Derek Yeager](https://www.linkedin.com/in/derekcyeager/) (derek@databricks.com)
 // MAGIC * Additional: [Michael Johns](https://www.linkedin.com/in/michaeljohns2/) (mjohns@databricks.com)
-// MAGIC 
-// MAGIC __GEOINT 2021 Slides for Training Class [Databricks: Hands-On Scaled Spatial Processing using Popular Open Source Frameworks](https://docs.google.com/presentation/d/1oqEh-FD5Ls5xgo-OOEUbuzA2tMzNFQ8V/edit?usp=sharing&ouid=110699193143161784974&rtpof=true&sd=true) by Michael Johns__
 
 // COMMAND ----------
 

@@ -22,12 +22,14 @@
 # MAGIC __Authors__
 # MAGIC * Initial: [Derek Yeager](https://www.linkedin.com/in/derekcyeager/) (derek@databricks.com)
 # MAGIC * Additional: [Michael Johns](https://www.linkedin.com/in/michaeljohns2/) (mjohns@databricks.com)
-# MAGIC 
-# MAGIC __GEOINT 2021 Slides for Training Class [Databricks: Hands-On Scaled Spatial Processing using Popular Open Source Frameworks](https://docs.google.com/presentation/d/1oqEh-FD5Ls5xgo-OOEUbuzA2tMzNFQ8V/edit?usp=sharing&ouid=110699193143161784974&rtpof=true&sd=true) by Michael Johns__
 
 # COMMAND ----------
 
 # MAGIC %md ## Config
+
+# COMMAND ----------
+
+# MAGIC %run ./resources/setup
 
 # COMMAND ----------
 
@@ -69,10 +71,8 @@ SedonaRegistrator.registerAll(spark)
 
 # COMMAND ----------
 
-# MAGIC %sql
-# MAGIC 
-# MAGIC -- what is in the database currently
-# MAGIC show tables from nyctlc
+#what is in the database currently
+display(spark.sql(f"show tables from {dbName}")) 
 
 # COMMAND ----------
 
@@ -81,10 +81,12 @@ SedonaRegistrator.registerAll(spark)
 # MAGIC __Converting Lat/Lon cols to Point Geometry on the fly.__
 # MAGIC 
 # MAGIC > This is a 1% SAMPLE of the original 45M points (so 450K points)
+# MAGIC 
+# MAGIC [GeoSparkSQL-Constructor: ST_Point](https://sedona.apache.org/archive/api/sql/GeoSparkSQL-Constructor/?h=st_point#st_point)
 
 # COMMAND ----------
 
-points_df = spark.sql("""
+points_df = spark.sql(f"""
   SELECT
     lpep_pickup_datetime,
     Passenger_count,
@@ -92,12 +94,13 @@ points_df = spark.sql("""
     Tolls_amount,
     ST_Point(cast(Pickup_longitude as Decimal(24,20)), cast(Pickup_latitude as Decimal(24,20))) as pickup_point 
   FROM 
-    nyctlc.green_tripdata_bronze""") \
+    {dbName}.green_tripdata_bronze""") \
   .sample(0.01) \
   .repartition(sc.defaultParallelism * 20) \
   .cache()
   
 num_points_in_sample = points_df.count()
+print(num_points_in_sample)
 
 # COMMAND ----------
 
@@ -107,15 +110,16 @@ num_points_in_sample = points_df.count()
 
 # COMMAND ----------
 
-polygon_df = spark.sql("""
+polygon_df = spark.sql(f"""
   SELECT 
     zone, 
     ST_GeomFromWKT(the_geom) as geom 
   FROM 
-    nyctlc.nyc_taxi_zones_bronze""") \
+    {dbName}.nyc_taxi_zones_bronze""") \
   .cache()
 
 num_polygons = polygon_df.count()
+print(f"num_polygons: {num_polygons}")
 
 # COMMAND ----------
 
@@ -158,7 +162,9 @@ point_in_polygon = spark.sql("""
 
 # COMMAND ----------
 
-point_in_polygon.explain("formatted")
+# MAGIC %sql
+# MAGIC explain formatted select * from point_in_polygon
+# MAGIC -- # point_in_polygon.explain()
 
 # COMMAND ----------
 

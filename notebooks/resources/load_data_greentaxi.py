@@ -1,4 +1,18 @@
 # Databricks notebook source
+# MAGIC %md
+# MAGIC The New York City Taxi and Limousine Commission (TLC) provides a [dataset](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page) of trips taken by taxis and for-hire vehicles in New York City.  
+# MAGIC 
+# MAGIC AWS hosts this dataset in an S3 bucket in the `us-east-1` region (more information [here]( https://registry.opendata.aws/nyc-tlc-trip-records-pds/)).
+# MAGIC 
+# MAGIC Within this dataset, there are records for Yellow taxis, Green taxis, and for-hire vehicles (e.g. Uber, Lyft).  
+# MAGIC 
+# MAGIC For our purposes, we are interested in the records that have geospatial coordinates associated.  This includes:
+# MAGIC - Yellow trip data from January 2009 through June 2016
+# MAGIC - Green trip data from August 2013 through June 2016
+# MAGIC - (The FHV trip data does not include coordinates)
+
+# COMMAND ----------
+
 # MAGIC %run ./setup
 
 # COMMAND ----------
