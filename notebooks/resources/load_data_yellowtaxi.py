@@ -134,24 +134,24 @@ with open("schema_v1_path.txt", "w") as file:
 # COMMAND ----------
 
 schema_v1 = StructType([
-  .StructField("vendor_name",StringType(),True),
-  .StructField("Trip_Pickup_DateTime",TimestampType(),True),
-  .StructField("Trip_Dropoff_DateTime",TimestampType(),True),
-  .StructField("Passenger_Count",IntegerType(),True),  
-  .StructField("Trip_Distance",DoubleType(),True),
-  .StructField("Start_Lon",DoubleType(),True),
-  .StructField("Start_Lat",DoubleType(),True),
-  .StructField("Rate_Code",IntegerType(),True),
-  .StructField("store_and_forward",StringType(),True), 
-  .StructField("End_Lon",DoubleType(),True),
-  .StructField("End_Lat",DoubleType(),True),
-  .StructField("Payment_Type",StringType(),True),
-  .StructField("Fare_Amt",DoubleType(),True),
-  .StructField("surcharge",DoubleType(),True),
-  .StructField("mta_tax",DoubleType(),True),
-  .StructField("Tip_Amt",DoubleType(),True),
-  .StructField("Tolls_Amt",DoubleType(),True),
-  .StructField("Total_Amt",DoubleType(),True),
+  StructField("vendor_name",StringType(),True),
+  StructField("Trip_Pickup_DateTime",TimestampType(),True),
+  StructField("Trip_Dropoff_DateTime",TimestampType(),True),
+  StructField("Passenger_Count",IntegerType(),True),  
+  StructField("Trip_Distance",DoubleType(),True),
+  StructField("Start_Lon",DoubleType(),True),
+  StructField("Start_Lat",DoubleType(),True),
+  StructField("Rate_Code",IntegerType(),True),
+  StructField("store_and_forward",StringType(),True), 
+  StructField("End_Lon",DoubleType(),True),
+  StructField("End_Lat",DoubleType(),True),
+  StructField("Payment_Type",StringType(),True),
+  StructField("Fare_Amt",DoubleType(),True),
+  StructField("surcharge",DoubleType(),True),
+  StructField("mta_tax",DoubleType(),True),
+  StructField("Tip_Amt",DoubleType(),True),
+  StructField("Tolls_Amt",DoubleType(),True),
+  StructField("Total_Amt",DoubleType(),True),
 ])
 
 yellow_tripdata_v1 = (spark.read
@@ -228,6 +228,10 @@ spark.sql(f"OPTIMIZE {dbName}.yellow_tripdata_bronze")
 
 # COMMAND ----------
 
+# MAGIC %md Cells below are optional 
+
+# COMMAND ----------
+
 schema_v3 = StructType([
   StructField("VendorID",StringType(),True),
   StructField("tpep_pickup_datetime",TimestampType(),True),
@@ -246,7 +250,7 @@ schema_v3 = StructType([
   StructField("mta_tax",DoubleType(),True),
   StructField("tip_amount",DoubleType(),True),
   StructField("tolls_amount",DoubleType(),True),
-  StructField("improvement_surcharge",DoubleType(),True), // new column!
+  StructField("improvement_surcharge",DoubleType(),True),
   StructField("total_amount",DoubleType(),True),
 ])
 
@@ -268,6 +272,14 @@ _ = (yellow_tripdata_v3.write
      .option("mergeSchema",True)
      .save(BRONZE_PATH)
     )
+
+# COMMAND ----------
+
+print(SCHEMA_V1_RAW_PATH)
+
+# COMMAND ----------
+
+# MAGIC %fs ls /Users/christopher.chalcraft@databricks.com/geospatial/nyctaxi/yellow_tripdata/raw/schema_v1
 
 # COMMAND ----------
 

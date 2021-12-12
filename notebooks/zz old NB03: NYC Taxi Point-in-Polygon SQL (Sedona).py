@@ -168,7 +168,7 @@ point_in_polygon = spark.sql("""
 
 # COMMAND ----------
 
-point_in_polygon.cache()
+point_in_polygon.show()
 
 # COMMAND ----------
 
