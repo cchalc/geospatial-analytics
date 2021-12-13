@@ -14,8 +14,6 @@
 # MAGIC __Authors__
 # MAGIC * Initial: [Derek Yeager](https://www.linkedin.com/in/derekcyeager/) (derek@databricks.com)
 # MAGIC * Additional: [Michael Johns](https://www.linkedin.com/in/michaeljohns2/) (mjohns@databricks.com)
-# MAGIC 
-# MAGIC __GEOINT 2021 Slides for Training Class [Databricks: Hands-On Scaled Spatial Processing using Popular Open Source Frameworks](https://docs.google.com/presentation/d/1oqEh-FD5Ls5xgo-OOEUbuzA2tMzNFQ8V/edit?usp=sharing&ouid=110699193143161784974&rtpof=true&sd=true) by Michael Johns__
 
 # COMMAND ----------
 
@@ -24,6 +22,10 @@
 # COMMAND ----------
 
 # MAGIC %pip install h3==3.6.3 keplergl
+
+# COMMAND ----------
+
+# MAGIC %run ./resources/setup
 
 # COMMAND ----------
 
@@ -83,8 +85,12 @@ h3_resolution = 11
 
 # COMMAND ----------
 
+print(dbName)
+
+# COMMAND ----------
+
 h3_aggregation = (
-  spark.read.table("nyctlc.green_tripdata_bronze")
+  spark.read.table(f"{dbName}.green_tripdata_bronze")
     
     # compute h3 grid location at a given resolution for each point
     .withColumn(
@@ -127,4 +133,5 @@ pandas_df = h3_aggregation.toPandas()
 
 # COMMAND ----------
 
-pandas_df.to_csv(f"/dbfs/home/derek.yeager@databricks.com/nyctaxi/green_rollups/out_{h3_resolution}_.csv", index=False, header=True)
+BASE_PATH_DBFS = f"{path}/nyctaxi/exports"
+pandas_df.to_csv(f"{BASE_PATH_DBFS}/green_rollups/out_{h3_resolution}_.csv", index=False, header=True)
